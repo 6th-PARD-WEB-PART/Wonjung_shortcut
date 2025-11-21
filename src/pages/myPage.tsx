@@ -42,7 +42,7 @@ export default function myPage() {
       <h2 className="text-neutral-800 text-3xl font-black mb-12">예약 조회</h2>
 
       {/* ===== 테이블 헤더 ===== */}
-      <div className="grid grid-cols-5 w-[1167px] text-start text-xl font-bold text-neutral-800 mb-6 pl-10">
+      <div className="grid grid-cols-5 w-[1167px] text-start text-xl font-bold text-neutral-800 mb-6 pl-5">
         <div>No</div>
         <div>날짜</div>
         <div>호실</div>
