@@ -3,4 +3,5 @@ export interface Reservation {
   roomId: number;
   date: string;
   floor: number;
+  roomNumber: number;
 }

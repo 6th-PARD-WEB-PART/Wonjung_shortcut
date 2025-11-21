@@ -12,3 +12,15 @@ export const getAllReservationsApi = async (): Promise<Reservation[]> => {
     return [];
   }
 };
+
+export const cancelReservationApi = async (roomNumber: number, date: string) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/reservations`, {
+      data: { roomNumber, date },
+    });
+    return response.data;
+  } catch (err) {
+    console.error("예약 취소 API 실패", err);
+    throw err;
+  }
+};

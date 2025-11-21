@@ -6,26 +6,27 @@ import { Reservation } from "@/types/reservation";
 export default function myPage() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
 
+  const loadReservations = async () => {
+    const data = await getAllReservationsApi();
+    setReservations(data);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAllReservationsApi();
-      setReservations(data);
-    };
-
-    fetchData();
+    loadReservations();
   }, []);
-
 
   return (
     <div className="w-[1609px] px-16 py-12">
-
       {/* ===== 상단 프로필 & 인사 ===== */}
       <div className="flex items-center justify-between mb-[117px]">
-
         {/* 프로필 + 텍스트 */}
         <div className="flex items-center gap-6">
           {/* 프로필 이미지 */}
-          <img src="/icons/profile.svg" alt="profile" className="w-24 h-24 rounded-full" />
+          <img
+            src="/icons/profile.svg"
+            alt="profile"
+            className="w-24 h-24 rounded-full"
+          />
 
           {/* 인사 텍스트 */}
           <div>
@@ -35,7 +36,6 @@ export default function myPage() {
             </p>
           </div>
         </div>
-
       </div>
 
       {/* ===== 예약 조회 제목 ===== */}
@@ -44,21 +44,21 @@ export default function myPage() {
       {/* ===== 테이블 헤더 ===== */}
       <div className="grid grid-cols-5 w-[1167px] text-start text-xl font-bold text-neutral-800 mb-6 pl-5">
         <div>No</div>
-        <div>날짜</div>
-        <div>호실</div>
-        <div>예약취소가능시간</div>
-        <div>바로가기</div>
+        <div className="pl-8">날짜</div>
+        <div className="pl-5">호실</div>
+        <div className="pl-5">예약취소가능시간</div>
+        <div className="text-right pr-5">바로가기</div>
       </div>
 
       {/* 데이터 리스트 (map 사용 -> 반복) */}
       {reservations.map((item, index) => (
         <ReservationRow
-          key={item.reserveRoomId}
+          key={`${item.roomNumber}-${item.date}`}
           data={item}
           index={index}
-          />
+          onCancel={loadReservations}
+        />
       ))}
-
     </div>
   );
 }

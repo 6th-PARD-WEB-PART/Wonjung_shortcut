@@ -16,8 +16,11 @@ export default function Sidebar() {
 
       {/* ===== 상단 로고 + 이름 ===== */}
       <div>
-        <div className="flex items-center gap-4 px-8 mb-12">
-          <h1 className="text-2xl font-bold">도미터리</h1>
+        <div className="flex items-center gap-4 px-8">
+          <Link href="/dashBoard">
+            <img src="/icons/logo.svg" className="w-60 h-60 cursor-pointer" alt="logo"/>
+          </Link>
+          
         </div>
 
         {/* ===== 메뉴 리스트 ===== */}
