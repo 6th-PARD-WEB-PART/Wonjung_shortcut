@@ -1,51 +1,75 @@
-export default function Sidebar(){
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+const menuItems = [
+  { label: "대시보드", href: "/dashBoard", icon: "/icons/dashBoardIcon.svg" },
+  { label: "예약하기", href: "/reservation", icon: "/icons/reservationIcon.svg" },
+  { label: "마이페이지", href: "/myPage", icon: "/icons/mypageIcon.svg" },
+  { label: "이용안내", href: "/info", icon: "/icons/informationIcon.svg" },
+];
+
+export default function Sidebar() {
+  const router = useRouter();
+
   return (
-    <nav className="w-[311px] h-screen bg-[#fff6eb] flex flex-col px-6 py-6">
-      
-      {/* 로고 + 제목 */}
-      <div className="mb-10">
-      
-        <h1 className="justify-start text-black text-3xl font-bold">도미터리</h1>
+    <nav className="w-[311px] h-screen bg-[#FFF6EB] flex flex-col justify-between py-10">
+
+      {/* ===== 상단 로고 + 이름 ===== */}
+      <div>
+        <div className="flex items-center gap-4 px-8 mb-12">
+          <h1 className="text-2xl font-bold">도미터리</h1>
+        </div>
+
+        {/* ===== 메뉴 리스트 ===== */}
+        <ul className="flex flex-col">
+          {menuItems.map((item) => {
+            const isFocus = router.pathname === item.href;
+
+            return (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  className={`
+                    w-full px-8 py-5 flex items-center gap-4 font-bold transition-all
+                    ${
+                      isFocus
+                        ? "bg-white text-[#EB6600]"
+                        : "bg-[#FFF6EB] text-black"
+                    }
+                    hover:bg-[#FFEBDB] active:bg-[#FFC7B4]
+                  `}
+                >
+                  <img
+                    src={item.icon}
+                    className="w-7 h-7"
+                  />
+                  
+                  <span
+                    className={`
+                      text-xl font-bold 
+                      ${isFocus ? "text-[#EB6600]" : "text-black"}
+                    `}
+                  >
+                    {item.label}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </div>
 
-      {/* 메뉴 리스트 */}
-      <ul className="flex flex-col gap-6 mt-4">
-        
-        {/* 대시보드 */}
-        <li>
-          <a className="flex items-center gap-3 text-[18px] text-black cursor-pointer hover:opacity-80">
-            <img src="/icons/dashboardIcon.svg" className="w-6 h-6" />
-            대시보드
-          </a>
-        </li>
-
-        {/* 예약하기 */}
-        <li>
-          <a className="flex items-center gap-3 text-[18px] text-black cursor-pointer hover:opacity-80">
-            <img src="/icons/reserveIcon.svg" className="w-6 h-6" />
-            예약하기
-          </a>
-        </li>
-
-        {/* 마이페이지 */}
-        <li>
-          <a className="flex items-center gap-3 text-[18px] text-black cursor-pointer hover:opacity-80">
-            <img src="/icons/myPageIcon.svg" className="w-6 h-6" />
-            마이페이지
-          </a>
-        </li>
-
-        {/* 이용안내 */}
-        <li>
-          <a className="flex items-center gap-3 text-[18px] text-black cursor-pointer hover:opacity-80">
-            <img src="/icons/infoIcon.svg" className="w-6 h-6" />
-            이용안내
-          </a>
-        </li>
-
-      </ul>
-
+      {/* ===== 하단 아이콘 ===== */}
+      <div className="flex flex-col gap-6 mb-6 self-start pl-8">
+        <img
+          src="/icons/NotificationIcon.svg"
+          className="w-8 h-8 cursor-pointer hover:opacity-60"
+        />
+        <img
+          src="/icons/SettingIcon.svg"
+          className="w-8 h-8 cursor-pointer hover:opacity-60"
+        />
+      </div>
     </nav>
-
   );
 }
